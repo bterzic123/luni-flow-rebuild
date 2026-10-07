@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+<title>Growth Audit — Scanner by Luni</title>
+<link rel="icon" href="img/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme: only light;
+  /* ---- Scanner (Luni), extracted from the live iOS screens ---- */
+  --sc-bg:#FFFFFF; --sc-card:#FFFFFF; --sc-soft:#F3F6FD; --sc-grey:#EBEBED; --sc-line:#D7DAE0;
+  --sc-blue:#4469C3; --sc-blue-dk:#3A5DB0; --sc-blue-home:#3E7BEE;
+  --sc-tl1:#7FB9E4; --sc-tl2:#B6D8F3; --sc-crown:#4B4B4B;
+  --sc-green:#2DAE53; --sc-gold:#B48A2C; --sc-bell:#F6BD59; --sc-red:#E0383E;
+  --sc-ink:#0B0B0C; --sc-txt:#3C3C43; --sc-muted:#8A8A8E; --sc-home:#F2F2F7;
+  --r-ctl:10px; --r-media:28px;
+  /* ---- the report shell, in Scanner's own palette ---- */
+  --bg:#F4F6FA; --bg2:#FFFFFF; --surf:#FFFFFF;
+  --hair:rgba(20,30,60,.09); --hair2:rgba(20,30,60,.16);
+  --ink:#121521; --ink2:#454A57; --ink3:#868B97;
+  --accent:#4469C3; --accent-lift:#3459B4;
+  --panel:#FFFFFF; --panel-ink:#121521; --panel-muted:#626775; --panel-line:#E7EAF0;
+  --accent-ink:#2D4F9F;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  font-size:15px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+@media(max-width:700px){.wrap{padding:0 20px}}
+
+/* ============ top bar ============ */
+.nav{position:sticky;top:0;z-index:70;background:rgba(244,246,250,.86);backdrop-filter:blur(18px) saturate(160%);
+  border-bottom:1px solid var(--hair)}
+.nav-in{max-width:1080px;margin:0 auto;padding:0 32px;height:58px;display:flex;align-items:center;gap:18px}
+@media(max-width:700px){.nav-in{padding:0 16px;gap:12px}}
+.nav-brand{display:flex;align-items:center;gap:9px;font-size:13.5px;font-weight:600;letter-spacing:-.01em}
+.nav-brand img{width:26px;height:26px;display:block;border-radius:6px}
+.nav-brand span{color:var(--ink2);font-weight:500}
+.nav-brand b{color:var(--ink);font-weight:600}
+.nav-links{margin-left:auto;display:flex;gap:2px;align-items:center}
+.nav-links button{padding:7px 14px;border-radius:8px;font-size:13px;font-weight:600;color:var(--ink3);transition:.16s}
+.nav-links button:hover{color:var(--ink)}
+.nav-links button.on{color:var(--ink);background:#fff;box-shadow:0 1px 4px rgba(20,30,60,.08)}
+@media(max-width:640px){.nav-brand span{display:none}}
+
+.view{display:none}
+.view.on{display:block}
+
+/* ============ hero ============ */
+.hero{padding:104px 0 0;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-340px;left:50%;transform:translateX(-50%);
+  width:1100px;height:640px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(68,105,195,.18),transparent 72%)}
+.hero::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(40% 50% at 8% 20%,rgba(127,185,228,.26),transparent 70%),
+   radial-gradient(38% 45% at 92% 18%,rgba(182,216,243,.32),transparent 70%)}
+.hero>*{position:relative;z-index:1}
+.eyebrow{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--accent-lift);margin-bottom:26px}
+.hero h1{font-size:76px;line-height:.98;font-weight:700;letter-spacing:-.045em;margin:0 0 24px}
+@media(max-width:820px){.hero h1{font-size:50px}.hero{padding-top:70px}}
+.hero .lede{font-size:20px;line-height:1.5;font-weight:400;color:var(--ink2);max-width:600px;margin:0 auto;letter-spacing:-.012em}
+@media(max-width:820px){.hero .lede{font-size:17px}}
+.hero .meta{margin-top:30px;font-size:12.5px;color:var(--ink3);letter-spacing:.02em}
+.hero .meta b{color:var(--ink2);font-weight:600}
+
+.stats{display:flex;justify-content:center;gap:0;margin:70px auto 0;max-width:760px;
+  border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stat{flex:1;padding:26px 14px;text-align:center;border-left:1px solid var(--hair)}
+.stat:first-child{border-left:none}
+.stat b{display:block;font-size:26px;font-weight:700;letter-spacing:-.03em;color:var(--ink)}
+.stat span{display:block;font-size:11.5px;color:var(--ink3);margin-top:5px;line-height:1.35}
+@media(max-width:700px){.stat b{font-size:19px}.stat{padding:18px 8px}}
+
+.fb{max-width:760px;margin:0 auto;padding:30px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:26px;text-align:left}
+@media(max-width:700px){.fb{grid-template-columns:1fr;gap:20px;padding-top:24px}}
+.fb-k{grid-column:1/-1;font-size:10.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--ink3);text-align:center;margin-bottom:-6px}
+.fb-i{display:flex;gap:12px;align-items:flex-start}
+.fb-i .tick{width:18px;height:18px;flex:none;margin-top:3px;border-radius:50%;background:rgba(68,105,195,.14);
+  display:grid;place-items:center}
+.fb-i .tick svg{width:10px;height:10px;stroke:var(--accent-lift);stroke-width:3;fill:none;
+  stroke-linecap:round;stroke-linejoin:round}
+.fb-i p{font-size:14px;line-height:1.55;color:var(--ink2);margin:0}
+.fb-i p b{color:var(--ink);font-weight:700}
+
+.sec{padding:96px 0}
+.sec-k{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink3);margin-bottom:18px}
+.sec h2{font-size:38px;line-height:1.14;font-weight:700;letter-spacing:-.035em;margin:0 0 20px;max-width:680px}
+@media(max-width:820px){.sec h2{font-size:29px}.sec{padding:64px 0}}
+.sec p.body{font-size:17px;line-height:1.66;color:var(--ink2);max-width:640px;margin:0 0 18px;letter-spacing:-.008em}
+.sec p.body b{color:var(--ink);font-weight:600}
+.rule{height:1px;background:var(--hair);margin:0}
+
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:40px;max-width:820px}
+@media(max-width:760px){.notes{grid-template-columns:1fr}}
+.note{background:var(--surf);border:1px solid var(--hair);box-shadow:0 2px 10px rgba(20,30,60,.04);border-radius:16px;padding:24px 26px}
+.note h4{font-size:15px;font-weight:700;letter-spacing:-.015em;margin:0 0 8px}
+.note p{font-size:14px;line-height:1.6;color:var(--ink2);margin:0}
+
+.ideas{display:flex;flex-direction:column;gap:0;margin-top:14px;border-top:1px solid var(--hair)}
+.idea{display:grid;grid-template-columns:52px 1fr 180px;gap:26px;align-items:start;
+  padding:30px 4px;border-bottom:1px solid var(--hair);text-align:left;width:100%;transition:.18s}
+.idea:hover{background:rgba(255,255,255,.7)}
+@media(max-width:780px){.idea{grid-template-columns:38px 1fr;gap:16px}}
+.idea .no{font-size:13px;font-weight:700;color:var(--ink3);padding-top:4px;letter-spacing:.02em}
+.idea h3{font-size:21px;line-height:1.25;font-weight:700;letter-spacing:-.024em;margin:0 0 7px}
+@media(max-width:820px){.idea h3{font-size:18px}}
+.idea p{font-size:14.5px;line-height:1.6;color:var(--ink2);margin:0;max-width:540px}
+.idea .out{text-align:right;padding-top:3px}
+@media(max-width:780px){.idea .out{grid-column:2;text-align:left;padding-top:12px}}
+.idea .out b{display:block;font-size:19px;font-weight:700;letter-spacing:-.025em;color:var(--accent-lift);white-space:nowrap}
+.idea .out span{display:block;font-size:10.5px;color:var(--ink3);margin-top:3px;letter-spacing:.04em;text-transform:uppercase;font-weight:600}
+.idea .seeit{display:inline-flex;align-items:center;gap:5px;margin-top:11px;font-size:12.5px;
+  font-weight:600;color:var(--accent-lift)}
+.idea .seeit svg{width:12px;height:12px}
+
+.band{background:var(--surf);border:1px solid var(--hair);border-radius:28px;box-shadow:0 2px 10px rgba(20,30,60,.04);padding:40px 44px;margin-top:44px;
+  display:flex;align-items:center;gap:36px;flex-wrap:wrap}
+@media(max-width:700px){.band{padding:28px 24px;gap:22px}}
+.band .lab{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px}
+.band .txt{flex:1;min-width:240px}
+.band .txt p{font-size:15.5px;line-height:1.6;color:var(--ink2);margin:0}
+.band .nums{display:flex;gap:34px}
+.band .nums div b{display:block;font-size:30px;font-weight:700;letter-spacing:-.035em;color:var(--accent-lift)}
+.band .nums div span{display:block;font-size:11px;color:var(--ink3);margin-top:2px;letter-spacing:.04em;
+  text-transform:uppercase;font-weight:600}
+
+.cta-row{display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap;margin-top:52px}
+.bigbtn{display:inline-flex;align-items:center;gap:9px;background:var(--accent);color:#fff;
+  font-size:15px;font-weight:700;letter-spacing:-.01em;padding:15px 26px;border-radius:30px;transition:.16s}
+.bigbtn:hover{filter:brightness(1.1)}
+.bigbtn svg{width:15px;height:15px}
+
+.foot{border-top:1px solid var(--hair);padding:36px 0 70px;font-size:12.5px;line-height:1.6;color:var(--ink3)}
+
+.herobtns{display:flex;justify-content:center;margin-top:30px}
+.ghostbtn{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--hair2);color:var(--ink);font-size:14px;
+  font-weight:700;padding:9px 20px 9px 9px;border-radius:30px;box-shadow:0 2px 12px rgba(20,30,60,.06);transition:.16s}
+.ghostbtn:hover{box-shadow:0 4px 18px rgba(20,30,60,.1)}
+.ghostbtn .pl{width:30px;height:30px;border-radius:50%;background:var(--accent);display:grid;place-items:center}
+.ghostbtn .pl svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+
+/* ============ prototype stage ============ */
+.stage{display:grid;grid-template-columns:minmax(440px,1fr) minmax(400px,470px);gap:0;
+  align-items:start;min-height:calc(100vh - 58px)}
+@media(max-width:1080px){.stage{grid-template-columns:1fr}}
+.phonecol{padding:34px 24px 46px;display:flex;flex-direction:column;align-items:center;gap:18px}
+.panelcol{border-left:1px solid var(--hair);background:var(--panel);color:var(--panel-ink);
+  min-height:calc(100vh - 58px);position:sticky;top:58px;max-height:calc(100vh - 58px);overflow-y:auto}
+@media(max-width:1080px){.panelcol{position:static;max-height:none;border-left:none;border-top:1px solid var(--hair)}}
+
+.phone{position:relative;width:390px;height:844px;flex:none;background:#000;border:11px solid #000;
+  border-radius:46px;box-shadow:0 0 0 1.5px #D3D8E2,0 34px 70px -22px rgba(20,30,60,.35)}
+.phone-in{position:absolute;inset:0;border-radius:36px;overflow:hidden;background:var(--sc-bg);color-scheme:only light}
+.island{position:absolute;top:9px;left:50%;transform:translateX(-50%);width:104px;height:30px;background:#000;
+  border-radius:16px;z-index:60;pointer-events:none}
+.sbar{position:absolute;top:0;left:0;right:0;height:50px;z-index:55;pointer-events:none;display:flex;
+  align-items:center;justify-content:space-between;padding:14px 28px 0 34px;font:600 15px/1 -apple-system,'Inter',sans-serif;color:#111;transition:color .3s}
+.sbar.light{color:#fff}
+.sbar .glyphs{display:flex;gap:5px;align-items:center}
+.homebar{position:absolute;bottom:7px;left:50%;transform:translateX(-50%);width:134px;height:5px;
+  border-radius:3px;background:#111;z-index:56;pointer-events:none;transition:background .3s}
+.homebar.light{background:rgba(255,255,255,.9)}
+.screenwrap{position:absolute;inset:0;overflow:hidden;background:var(--sc-bg)}
+
+/* ============ phone screens — Scanner's system, all prefixed scr-/sc- ============ */
+.scr{position:absolute;inset:0;display:flex;flex-direction:column;background:var(--sc-bg);color:var(--sc-ink);
+  font-family:-apple-system,BlinkMacSystemFont,'Inter',sans-serif;
+  transform:translateX(100%);transition:transform .36s cubic-bezier(.32,.72,0,1);z-index:10;will-change:transform}
+.scr.is-active{transform:translateX(0);z-index:20}
+.scr.is-past{transform:translateX(-24%)}
+.scr.sheet{transform:translateY(100%)}
+.scr.sheet.is-active{transform:translateY(0);z-index:30}
+.scr.nofx{transition:none}
+.scr-top{flex:none;padding:54px 22px 0;position:relative;z-index:2}
+.scr-body{flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;padding:0 22px;scrollbar-width:none;position:relative;z-index:2}
+.scr-body::-webkit-scrollbar{display:none}
+.scr-body.dock{display:flex;flex-direction:column}
+.scr-foot{flex:none;padding:12px 22px 30px;position:relative;z-index:2}
+
+.sc-nav{display:flex;align-items:center;height:36px}
+.sc-back,.sc-x{width:36px;height:36px;display:grid;place-items:center;color:#8E8E93;margin-left:-8px}
+.sc-back svg{width:22px;height:22px}
+.sc-x svg{width:17px;height:17px}
+.sc-h{font-size:24px;line-height:1.2;font-weight:700;letter-spacing:-.02em;margin:10px 0 0;text-align:center;color:var(--sc-ink)}
+.sc-sub{font-size:14px;line-height:1.4;color:var(--sc-muted);margin:6px 0 0;text-align:center}
+
+.sc-btn{display:block;width:100%;height:50px;border-radius:var(--r-ctl);background:var(--sc-blue);color:#fff;
+  font:500 16px/1 -apple-system,BlinkMacSystemFont,'Inter',sans-serif;transition:filter .15s}
+.sc-btn:hover{filter:brightness(1.06)}
+.sc-btn[disabled]{background:#B9C6E6;cursor:default}
+.sc-ghost{display:block;width:100%;height:40px;margin-top:4px;font:500 14px/1 -apple-system,'Inter',sans-serif;color:var(--sc-muted)}
+.sc-helper{font-size:12.5px;line-height:1.4;color:var(--sc-txt);text-align:center;margin:0 0 10px}
+.sc-helper b{font-weight:700;color:var(--sc-ink)}
+.sc-chk{display:flex;align-items:center;justify-content:center;gap:9px;font-size:13.5px;font-weight:700;color:var(--sc-ink);margin:0 0 6px}
+.sc-chk svg{width:16px;height:16px;stroke:var(--sc-green);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sc-legal{display:flex;justify-content:center;gap:8px;margin-top:12px;font-size:10.5px;color:var(--sc-txt)}
+.sc-legal a{text-decoration:underline}
+
+/* welcome */
+.sc-whero{margin:0 -22px;height:300px;position:relative;display:grid;place-items:center;overflow:hidden}
+.sc-whero::before{content:'';position:absolute;left:-10%;right:-10%;top:40px;height:230px;border-radius:50% 46% 52% 48%/58% 52% 48% 42%;
+  background:linear-gradient(160deg,#DCE6F8,#C9D8F4)}
+.sc-whero img{position:relative;width:300px;height:auto;display:block}
+.sc-wh{font-size:28px;line-height:1.15;font-weight:700;letter-spacing:-.02em;text-align:center;margin:18px 0 0;color:var(--sc-ink)}
+.sc-wsub{font-size:13px;color:var(--sc-txt);text-align:center;margin-top:4px}
+.sc-laurel{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:56px}
+.sc-laurel svg{width:30px;height:58px;flex:none}
+.sc-laurel div{text-align:center}
+.sc-laurel b{display:block;font-size:30px;line-height:1;font-weight:700;color:var(--sc-gold)}
+.sc-laurel span{display:block;font-size:11.5px;color:var(--sc-muted);margin-top:4px}
+
+/* option rows — their plan-card border and check */
+.sc-rows{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.sc-row{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:var(--sc-card);border:1.5px solid var(--sc-line);
+  border-radius:var(--r-ctl);padding:14px 14px;font:500 15.5px/1.3 -apple-system,'Inter',sans-serif;color:var(--sc-ink);transition:.16s}
+.sc-row .ic{width:26px;height:26px;flex:none;color:var(--sc-blue)}
+.sc-row .ic svg{width:26px;height:26px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sc-row .lb{flex:1}
+.sc-row.on{border-color:var(--sc-blue);background:var(--sc-soft)}
+.sc-ck{width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid #C4C8D0;display:grid;place-items:center;transition:.16s}
+.sc-ck svg{width:12px;height:12px;stroke:#fff;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;opacity:0}
+.sc-row.on .sc-ck{background:var(--sc-blue);border-color:var(--sc-blue)}
+.sc-row.on .sc-ck svg{opacity:1}
+
+/* set-up screen — their "try Scanner Pro" composition */
+.sc-rh{font-size:23px;line-height:1.22;font-weight:400;letter-spacing:-.01em;text-align:center;margin:6px 0 0;color:var(--sc-ink)}
+.sc-rh i{font-weight:800;font-style:italic}
+.sc-rh b{font-weight:800}
+.sc-rh em{font-style:normal;font-weight:800;color:var(--sc-blue)}
+.sc-mock{position:relative;width:186px;height:290px;margin:18px auto 0;background:#1C1C1E;border-radius:30px;padding:30px 9px 34px;
+  box-shadow:0 12px 30px -12px rgba(0,0,0,.45)}
+.sc-mock .scrn{position:relative;width:100%;height:100%;border-radius:4px;overflow:hidden;background:#2a2a2c}
+.sc-mock img{width:100%;height:100%;object-fit:cover;object-position:50% 30%;display:block}
+.sc-mock .pg{position:absolute;top:8px;right:8px;background:rgba(28,28,30,.82);color:#fff;font:600 9px/1 -apple-system,'Inter',sans-serif;
+  padding:5px 7px;border-radius:5px;letter-spacing:.02em}
+.sc-ready{display:flex;flex-direction:column;gap:9px;margin:18px 4px 0}
+.sc-ready div{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.35;color:var(--sc-txt)}
+.sc-ready div b{color:var(--sc-ink);font-weight:600}
+.sc-ready svg{width:16px;height:16px;flex:none;margin-top:1px;stroke:var(--sc-green);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* paywall — their trial timeline */
+.scr--pay .scr-top{padding-top:50px}
+.sc-payh{font-size:22px;line-height:1.24;font-weight:700;letter-spacing:-.015em;text-align:center;margin:4px 6px 0;color:var(--sc-ink)}
+.sc-tl{position:relative;margin-top:16px;padding-left:46px}
+.sc-tl .bar{position:absolute;left:10px;top:8px;bottom:6px;width:16px;border-radius:8px;
+  background:linear-gradient(180deg,var(--sc-tl1),var(--sc-tl2) 70%,#E3E3E6 72%,#E3E3E6)}
+.sc-tli{position:relative;padding-bottom:13px}
+.sc-tli .dot{position:absolute;left:-42px;top:-1px;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
+  background:linear-gradient(180deg,#5FA6E2,#3D86D2);box-shadow:0 0 0 3px #fff}
+.sc-tli .dot svg{width:14px;height:14px;fill:#fff}
+.sc-tli .dot.dk{background:linear-gradient(180deg,#5B5B5F,#2F2F33)}
+.sc-tli b{display:block;font-size:14px;font-weight:600;color:var(--sc-ink)}
+.sc-tli p{font-size:11.5px;line-height:1.38;color:var(--sc-muted);margin-top:2px}
+.sc-proof{display:flex;align-items:center;justify-content:center;gap:16px;margin:4px 0 0;padding:10px 0;border-top:1px solid #EFEFF2;border-bottom:1px solid #EFEFF2}
+.sc-proof .lr{display:flex;align-items:center;gap:6px}
+.sc-proof .lr svg{width:15px;height:30px}
+.sc-proof .lr b{font-size:19px;font-weight:700;color:var(--sc-gold);line-height:1}
+.sc-proof .lr span{font-size:10.5px;color:var(--sc-muted);display:block;line-height:1.2}
+.sc-proof .sep{width:1px;height:30px;background:#E5E5EA}
+.sc-proof .us b{display:block;font-size:17px;font-weight:700;color:var(--sc-ink);line-height:1.1}
+.sc-proof .us span{font-size:10.5px;color:var(--sc-muted)}
+.sc-tog{display:flex;align-items:center;justify-content:space-between;background:var(--sc-grey);border-radius:var(--r-ctl);padding:0 12px 0 16px;height:44px;margin-top:12px;
+  font-size:13.5px;color:var(--sc-ink);width:100%}
+.sc-sw{width:46px;height:28px;border-radius:14px;background:#C9C9CE;position:relative;transition:.2s;flex:none}
+.sc-sw i{position:absolute;top:2px;left:2px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:.2s}
+.sc-tog.on .sc-sw{background:var(--sc-blue)}
+.sc-tog.on .sc-sw i{left:20px}
+.sc-plans{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.sc-plan{position:relative;text-align:left;background:var(--sc-card);border:1.5px solid var(--sc-line);border-radius:var(--r-ctl);padding:10px 10px 8px;transition:.16s}
+.sc-plan.on{border-color:var(--sc-blue)}
+.sc-plan .rd{width:20px;height:20px;border-radius:50%;border:1.5px solid #C4C8D0;display:grid;place-items:center}
+.sc-plan .rd svg{width:11px;height:11px;stroke:#fff;stroke-width:3.2;fill:none;opacity:0;stroke-linecap:round;stroke-linejoin:round}
+.sc-plan.on .rd{background:var(--sc-blue);border-color:var(--sc-blue)}
+.sc-plan.on .rd svg{opacity:1}
+.sc-plan .n{display:block;font-size:12.5px;letter-spacing:.04em;color:var(--sc-txt);margin-top:9px}
+.sc-plan .p{display:block;font-size:11.5px;color:var(--sc-muted);margin-top:3px}
+.sc-plan .w{display:block;font-size:13px;color:var(--sc-ink);margin-top:3px;font-weight:500}
+.sc-plan .tg{display:block;margin-top:9px;height:20px;border-radius:10px;font:700 9.5px/20px -apple-system,'Inter',sans-serif;letter-spacing:.06em;text-align:center;color:var(--sc-ink)}
+.sc-plan .tg.pop{background:var(--sc-blue);color:#fff}
+
+/* offer — single-plan sheet */
+.scr--offer{background:var(--sc-bg)}
+.sc-oh{font-size:24px;line-height:1.22;font-weight:700;letter-spacing:-.02em;text-align:center;margin:8px 6px 0;color:var(--sc-ink)}
+.sc-oh b{color:var(--sc-blue)}
+.sc-ocard{position:relative;margin-top:24px;border:1.5px solid var(--sc-blue);border-radius:14px;padding:22px 18px 18px;text-align:center;background:var(--sc-card)}
+.sc-ocard .save{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--sc-blue);color:#fff;
+  font:700 10.5px/22px -apple-system,'Inter',sans-serif;letter-spacing:.06em;height:22px;padding:0 12px;border-radius:11px;white-space:nowrap}
+.sc-ocard .n{font-size:13px;letter-spacing:.05em;color:var(--sc-txt)}
+.sc-ocard .big{font-size:46px;line-height:1;font-weight:800;letter-spacing:-.03em;color:var(--sc-ink);margin-top:8px}
+.sc-ocard .big small{font-size:16px;font-weight:600;color:var(--sc-muted);letter-spacing:0}
+.sc-ocard .w{font-size:14px;color:var(--sc-ink);margin-top:6px;font-weight:500}
+.sc-cmp{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sc-cmp div{border-radius:10px;background:var(--sc-grey);padding:9px 8px;font-size:11.5px;line-height:1.3;color:var(--sc-txt)}
+.sc-cmp div b{display:block;font-size:15px;color:var(--sc-ink);font-weight:700;margin-top:2px}
+.sc-cmp div.y{background:var(--sc-soft);color:var(--sc-blue-dk)}
+.sc-cmp div.y b{color:var(--sc-blue)}
+.sc-ofeat{display:flex;flex-direction:column;gap:9px;margin:20px 6px 0}
+.sc-ofeat div{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--sc-txt)}
+.sc-ofeat svg{width:16px;height:16px;flex:none;stroke:var(--sc-green);stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* reminder — their bell screen */
+.sc-bellh{font-size:21px;line-height:1.3;font-weight:700;letter-spacing:-.01em;text-align:center;margin:30px 10px 0;color:var(--sc-ink)}
+.sc-bell{display:block;width:150px;height:150px;margin:58px auto 0}
+
+/* home — their Documents screen */
+.scr--home{background:var(--sc-home)}
+.sc-gear{position:absolute;right:20px;top:52px;width:24px;height:24px;color:var(--sc-txt)}
+.sc-hh{font-size:30px;font-weight:700;letter-spacing:-.02em;color:var(--sc-ink);margin-top:22px}
+.sc-search{display:flex;align-items:center;gap:7px;height:34px;border-radius:9px;background:#E3E3E8;padding:0 9px;margin-top:8px;font-size:14px;color:var(--sc-muted)}
+.sc-search svg{width:15px;height:15px}
+.sc-hill{display:block;width:150px;height:150px;margin:58px auto 0}
+.sc-hmode{text-align:center;font-size:12.5px;color:var(--sc-muted);margin:36px 0 8px}
+.sc-hmode b{color:var(--sc-blue-home);font-weight:600}
+.sc-hbtn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;height:46px;border-radius:7px;background:var(--sc-blue-home);color:#fff;font:500 14.5px/1 -apple-system,'Inter',sans-serif}
+.sc-hbtn.dk{background:#232326;margin-top:12px}
+.sc-hbtn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2.2;fill:none;stroke-linecap:round}
+.sc-tabs{display:flex;align-items:flex-start;justify-content:space-around;background:#fff;border-top:1px solid #E5E5EA;height:84px;padding-top:8px;margin:0 -22px -30px}
+.sc-tabs div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;color:#8E8E93;width:80px}
+.sc-tabs div.on{color:var(--sc-blue-home)}
+.sc-tabs svg{width:22px;height:22px}
+.sc-tabs .mid{width:44px;height:44px;border-radius:50%;background:var(--sc-blue-home);display:grid;place-items:center;margin-top:-2px}
+.sc-tabs .mid svg{width:20px;height:20px;stroke:#fff;fill:none;stroke-width:2}
+
+/* dark mode — an approximation: no dark frames were supplied */
+.phone-in.dark{--sc-bg:#121417;--sc-card:#1D2126;--sc-soft:#1B2740;--sc-grey:#23272D;--sc-line:#33383F;--sc-ink:#F2F3F5;--sc-txt:#B4B9C0;
+  --sc-muted:#80868D;--sc-home:#0D0F11;--sc-blue:#5B80D6;--sc-blue-dk:#9DB4EA;background:var(--sc-bg)}
+.phone-in.dark .screenwrap{background:var(--sc-bg)}
+.phone-in.dark .sc-whero::before{background:linear-gradient(160deg,#1C2740,#16203A)}
+.phone-in.dark .sc-tli .dot{box-shadow:0 0 0 3px var(--sc-bg)}
+.phone-in.dark .sc-tl .bar{background:linear-gradient(180deg,#3E6E98,#2D4D6E 70%,#2A2E33 72%,#2A2E33)}
+.phone-in.dark .sc-proof{border-color:#262A30}
+.phone-in.dark .sc-proof .sep{background:#2D3238}
+.phone-in.dark .sc-sw{background:#3A3F46}
+.phone-in.dark .sc-tog.on .sc-sw{background:var(--sc-blue)}
+.phone-in.dark .sc-row:not(.on) .sc-ck,.phone-in.dark .sc-plan:not(.on) .rd{border-color:#4A5058}
+.phone-in.dark .sc-btn[disabled]{background:#2A3550;color:#7D8AA8}
+.phone-in.dark .sc-search{background:#1F2328}
+.phone-in.dark .sc-hbtn.dk{background:#2A2E33}
+.phone-in.dark .sc-tabs{background:#16191C;border-color:#262A30}
+.phone-in.dark .sc-mock{background:#000}
+.phone-in.dark .sc-cmp div.y b{color:#8FA9EA}
+
+/* prototype toolbar, walkthrough, QR */
+.tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;max-width:520px}
+.seg{display:inline-flex;align-items:center;background:#fff;border:1px solid #DFE3EA;border-radius:20px;padding:3px;gap:2px}
+.seg button{padding:6px 11px;border-radius:16px;font:600 12px/1 'Inter',sans-serif;color:var(--ink2);transition:.14s}
+.seg button.on{background:var(--ink);color:#fff}
+.demo-btn{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:20px;background:var(--accent);color:#fff;
+  font:700 12px/1 'Inter',sans-serif}
+.demo-cap{width:390px;max-width:calc(100vw - 24px);background:#fff;border:1px solid var(--hair);border-radius:16px;padding:14px 14px 12px;
+  display:flex;align-items:center;gap:12px;position:relative;overflow:hidden;box-shadow:0 4px 18px rgba(20,30,60,.07)}
+.demo-cap .bar{position:absolute;left:0;top:0;right:0;height:3px;background:#EEF0F4}
+.demo-cap .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s linear}
+.demo-cap p{flex:1;font-size:13.5px;line-height:1.45;color:var(--ink);margin:0;font-weight:500}
+.demo-cap button{font:700 12px/1 'Inter',sans-serif;color:var(--ink2);padding:7px 10px;border-radius:12px;border:1px solid #DFE3EA;flex:none}
+.finger{position:absolute;z-index:90;width:46px;height:46px;margin:-23px 0 0 -23px;border-radius:50%;background:rgba(20,30,60,.26);
+  border:2px solid rgba(255,255,255,.95);box-shadow:0 4px 14px rgba(0,0,0,.25);pointer-events:none;opacity:0;left:50%;top:60%;
+  transition:left .32s cubic-bezier(.4,0,.2,1),top .32s cubic-bezier(.4,0,.2,1),opacity .2s,transform .15s}
+.finger.show{opacity:1}
+.finger.press{transform:scale(.78);background:rgba(20,30,60,.4)}
+.qr{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--hair);border-radius:16px;padding:10px 16px 10px 10px;text-align:left}
+.qr img{width:123px;height:123px;display:block;image-rendering:pixelated;border-radius:6px}
+.qr span{font-size:12.5px;line-height:1.45;color:var(--ink2)}
+.qr b{display:block;color:var(--ink);font-size:13.5px}
+@media(max-width:1080px){.qr{display:none}}
+
+#view-proto .tools{order:0} #view-proto .demo-cap{order:1} #view-proto .phone{order:2} #view-proto .chips{order:3}
+#view-proto .chiphint{order:4} #view-proto .qr{order:5}
+.cta-row .qr{order:2}
+/* on a phone: the prototype is the screen */
+@media(max-width:500px){
+  #view-proto .phonecol{padding:0 0 28px;gap:14px}
+  #view-proto .phone{width:100vw;height:calc(100svh - 58px);min-height:640px;border:0;border-radius:0;box-shadow:none;order:1}
+  #view-proto .phone-in{border-radius:0}
+  #view-proto .island,#view-proto .sbar,#view-proto .homebar{display:none}
+  #view-proto .scr-top{padding-top:14px}
+  #view-proto .scr-foot{padding-bottom:18px}
+  #view-proto .scr--pay .scr-top{padding-top:10px}
+  #view-proto .sc-gear{top:14px}
+  #view-proto .sc-whero{height:250px}
+  #view-proto .sc-tabs{margin-bottom:-18px;height:70px}
+  #view-proto .tools{order:3;padding:0 12px}
+  #view-proto .demo-cap{position:fixed;left:12px;right:12px;bottom:12px;width:auto;max-width:none;z-index:95}
+  #view-proto .chips{order:4;padding:0 12px}
+  #view-proto .chiphint{order:5}
+}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:470px;margin:0 auto}
+.chip{padding:7px 13px;border-radius:20px;border:1px solid #DFE3EA;background:#fff;
+  font:600 12px/1 'Inter',sans-serif;color:var(--ink2);transition:.14s}
+.chip:hover{color:var(--ink);border-color:#C5CCD8}
+.chip.offer{border-style:dashed;border-color:var(--accent);color:var(--accent-lift)}
+.chip.on{background:var(--accent);border-color:var(--accent);color:#fff;border-style:solid}
+.chiphint{text-align:center;font-size:11px;color:var(--ink3);margin:0;max-width:430px}
+
+/* ============ the short panel ============ */
+.pn{padding:30px 30px 60px}
+.pn-n{font-size:10.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-ink)}
+.pn-n.ctx{color:var(--panel-muted)}
+.pn-t{font-size:23px;line-height:1.18;font-weight:700;letter-spacing:-.028em;margin:8px 0 0;color:var(--panel-ink)}
+.pn-hyp{font-size:15px;line-height:1.62;color:#2E3340;margin:16px 0 0}
+.pn-hyp b{font-weight:700;color:var(--panel-ink)}
+.pn-out{margin-top:22px;border-top:1px solid var(--panel-line);padding-top:18px}
+.pn-out .lab{font-size:10px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--panel-muted)}
+.pn-out .v{font-size:31px;font-weight:700;letter-spacing:-.035em;color:var(--accent-ink);margin-top:7px;line-height:1}
+.pn-kept{margin-top:22px;font-size:12.5px;line-height:1.55;color:var(--panel-muted)}
+.pn-kept b{color:#2E3340;font-weight:700}
+.pn-foot{font-size:11.5px;line-height:1.55;color:var(--panel-muted);border-top:1px solid var(--panel-line);
+  padding-top:14px;margin-top:26px}
+.pn-sep{height:1px;background:var(--panel-line);margin:26px 0}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+
+<div class="nav">
+  <div class="nav-in">
+    <div class="nav-brand">
+      <img src="img/icon.png" alt="Scanner">
+      <b>Growth Audit</b><span>· Scanner by Luni</span>
+    </div>
+    <div class="nav-links">
+      <button class="on" data-view="over">Overview</button>
+      <button data-view="proto">Prototype</button>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= OVERVIEW ======================= -->
+<div class="view on" id="view-over">
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Growth Audit · October 2026</div>
+    <h1>Scanner</h1>
+    <p class="lede">Five ideas to unlock more revenue from the traffic you already have.</p>
+    <div class="meta">Prepared by <b>Adapty</b> for Luni · based on your live iOS flow and your App Store listing</div>
+    <div class="herobtns"><button class="ghostbtn" data-demo><span class="pl"><svg viewBox="0 0 24 24"><path d="M7 4.5v15l12-7.5z"/></svg></span>Watch the 30-second walkthrough</button></div>
+    <div class="stats">
+      <div class="stat"><b>30,000+</b><span>apps run subscriptions<br>on Adapty</span></div>
+      <div class="stat"><b>5</b><span>ideas, each rebuilt<br>as a working screen</span></div>
+      <div class="stat"><b>0</b><span>design changes<br>to your art direction</span></div>
+    </div>
+
+    <div class="fb">
+      <div class="fb-k">Built in Adapty Flow Builder</div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Millions of dollars</b> in subscription revenue pass through Flow Builder every month.</p>
+      </div>
+      <div class="fb-i">
+        <span class="tick"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <p><b>Nearly 500 apps</b> actively build their paywalls and onboarding in it — plenty of them past $100K MRR.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">What this is</div>
+    <h2>We opened Scanner the way a new user does, then rebuilt the parts we think are leaving money on the table.</h2>
+    <p class="body">Adapty powers subscriptions for <b>30,000+ apps</b>, so we get to see what actually moves conversion and ARPU across the market rather than inside one app. We pointed that at Scanner: installed it, went through every screen up to the paywall, read your App Store listing, and looked for gaps between what you already have and what you currently show people.</p>
+    <p class="body">What follows is five ideas — not fifteen. Each one is a hypothesis you can A/B test, and each one is built into a clickable prototype so you can see it rather than imagine it. <b>The prototype uses your design, not ours.</b></p>
+
+    <div class="notes">
+      <div class="note">
+        <h4>We did not redesign your app</h4>
+        <p>Every screen in the prototype is yours — your blue, your plan cards with the check and the POPULAR pill, your trial timeline and toggle, your 4.8 laurel, your bell. Only the order changed, plus a few things you already own but do not show at the right moment.</p>
+      </div>
+      <div class="note">
+        <h4>You may have tested some of this</h4>
+        <p>We are working from the outside, so we cannot see your experiment history. If one of these is something you have already run, tell us — we will go deeper on the rest rather than repeat it.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="rule"></div>
+
+<div class="sec">
+  <div class="wrap">
+    <div class="sec-k">The five ideas</div>
+    <h2>Ranked by what we would test first.</h2>
+    <p class="body">Each one links straight to the screen in the prototype.</p>
+
+    <div class="ideas">
+      <button class="idea" data-jump="offer">
+        <span class="no">01</span>
+        <span>
+          <h3>Offer the year when they close the paywall</h3>
+          <p>Your yearly plan is $89.99, which is $1.73 a week and 42% less than twelve months at $12.99. Today it sits unselected next to a preselected monthly, and we saw no second chance after the X. Give it its own screen when someone says no.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>ARPU +10–15%</b><span>second chance</span></span>
+      </button>
+
+      <button class="idea" data-jump="scan">
+        <span class="no">02</span>
+        <span>
+          <h3>Ask what they scan, then say it on the paywall</h3>
+          <p>Nothing in the flow asks why someone installed a scanner, so the paywall says “to continue” to everyone. One tap — receipts, contracts, IDs, notes, whiteboards, the uses your App Store listing names — and the headline can say “to scan your contracts and IDs”.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +15–20%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="reminder">
+        <span class="no">03</span>
+        <span>
+          <h3>Pitch the free trial once, not three times</h3>
+          <p>“Try for $0.00”, then the reminder bell, then a paywall whose timeline already promises the reminder. Three screens in a row about the same trial. Let the paywall make the case, and ask for the reminder just after they start it.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="ready">
+        <span class="no">04</span>
+        <span>
+          <h3>Show their scanner set up before the price</h3>
+          <p>Ask what they need to do with the page — sign it, send it as Word, copy the text, lock it. Then show those tools switched on, in your own phone mockup. Every line is a feature your listing already sells.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+
+      <button class="idea" data-jump="paywall">
+        <span class="no">05</span>
+        <span>
+          <h3>Put your 4.8 and 30M+ users next to the plans</h3>
+          <p>Your laurel — 4.8 from 1.5M total ratings — is on the welcome screen only, four screens before anyone is asked to pay. Your listing says 30M+ people use Scanner. Neither appears on the paywall, which has empty space right where they would go.</p>
+          <span class="seeit">See the screen <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </span>
+        <span class="out"><b>CR +10–15%</b><span>to purchase</span></span>
+      </button>
+    </div>
+
+    <div class="band">
+      <div class="txt">
+        <div class="lab">Potential outcome</div>
+        <p>Run together, these five work on the same few seconds: what the flow learns before the price, what the paywall says back, and what happens when someone says no. Potential result: revenue up to +30%.</p>
+      </div>
+      <div class="nums">
+        <div><b>+25%</b><span>CR to purchase</span></div>
+        <div><b>+15%</b><span>ARPU</span></div>
+      </div>
+    </div>
+
+    <div class="cta-row">
+      <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for the prototype"><span><b>Or open it on your phone</b>Scan to try the flow in your hand.</span></div>
+      <button class="bigbtn" data-view="proto">Open the prototype
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="wrap">
+    Impact ranges are Adapty's expected effect from teardowns and A/B tests across subscription apps — not measured lift for Luni. Every price, rating, user count and feature line here and in the prototype comes from Scanner's own App Store listing and in-app screens.
+  </div>
+</div>
+</div><!-- /view-over -->
+
+<!-- ======================= PROTOTYPE ======================= -->
+<div class="view" id="view-proto">
+<div class="stage">
+  <div class="phonecol">
+    <div class="tools" id="tools">
+      <div class="seg" id="segLang"><button data-lang="en" class="on">EN</button><button data-lang="fr">FR</button></div>
+      <div class="seg" id="segTheme"><button data-theme="light" class="on">Light</button><button data-theme="dark">Dark</button></div>
+      <button class="demo-btn" id="demoBtn"><svg viewBox="0 0 24 24" width="11" height="11" fill="currentColor"><path d="M7 4.5v15l12-7.5z"/></svg>30-sec walkthrough</button>
+    </div>
+    <div class="phone">
+      <div class="phone-in" id="phoneIn">
+        <div class="island"></div>
+        <div class="sbar" id="sbar">
+          <span>9:41</span>
+          <span class="glyphs">
+            <svg width="17" height="11" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="5.5" rx="1"/><rect x="9" y="3" width="3" height="8" rx="1"/><rect x="13.5" y="0" width="3" height="11" rx="1"/></svg>
+            <svg width="16" height="11" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.6 7.9a3.4 3.4 0 0 1 4.8 0L8 10.5Zm0-5.6a6.4 6.4 0 0 0-4.5 1.9L1.7 4.9a9 9 0 0 1 12.6 0l-1.8 1.9A6.4 6.4 0 0 0 8 4.9Z"/></svg>
+            <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x=".6" y=".6" width="20" height="10.8" rx="3" stroke="currentColor" stroke-opacity=".5"/><rect x="2.2" y="2.2" width="16.5" height="7.6" rx="1.8" fill="currentColor"/><path d="M22.3 4.1v3.8a2 2 0 0 0 0-3.8Z" fill="currentColor" fill-opacity=".5"/></svg>
+          </span>
+        </div>
+        <div class="homebar" id="homebar"></div>
+        <div class="finger" id="finger"></div>
+        <div class="screenwrap">
+
+<!-- WELCOME -->
+<section class="scr scr--welcome" data-id="welcome">
+  <div class="scr-top" style="padding-top:44px"></div>
+  <div class="scr-body">
+    <div class="sc-whero"><img src="img/lineart-a.png" alt="A document plus a phone equals a scanner"></div>
+    <h2 class="sc-wh" data-t="wel.h"></h2>
+    <p class="sc-wsub" data-t="wel.sub"></p>
+    <div class="sc-laurel"><svg class="lf" viewBox="0 0 30 58"></svg><div><b>4.8</b><span data-t="rat"></span></div><svg class="lf r" viewBox="0 0 30 58"></svg></div>
+  </div>
+  <div class="scr-foot"><button class="sc-btn" data-go="scan" data-t="cont"></button></div>
+</section>
+
+<!-- WHAT YOU SCAN -->
+<section class="scr" data-id="scan">
+  <div class="scr-top">
+    <div class="sc-nav"><button class="sc-back" data-back aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+    <h2 class="sc-h" data-t="scan.h"></h2>
+    <p class="sc-sub" data-t="pick"></p>
+  </div>
+  <div class="scr-body"><div class="sc-rows" id="scanList"></div><div style="height:10px"></div></div>
+  <div class="scr-foot"><button class="sc-btn" id="scanBtn" data-go="use" data-t="cont"></button></div>
+</section>
+
+<!-- WHAT YOU DO -->
+<section class="scr" data-id="use">
+  <div class="scr-top">
+    <div class="sc-nav"><button class="sc-back" data-back aria-label="Back"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></button></div>
+    <h2 class="sc-h" data-t="use.h"></h2>
+    <p class="sc-sub" data-t="pick"></p>
+  </div>
+  <div class="scr-body"><div class="sc-rows" id="useList"></div><div style="height:10px"></div></div>
+  <div class="scr-foot"><button class="sc-btn" id="useBtn" data-go="ready" data-t="cont"></button></div>
+</section>
+
+<!-- SET UP -->
+<section class="scr" data-id="ready">
+  <div class="scr-top" style="padding-top:62px">
+    <h2 class="sc-rh" id="readyH"></h2>
+  </div>
+  <div class="scr-body">
+    <div class="sc-mock"><div class="scrn"><img src="img/scan.jpg" alt="A letter being scanned, edges detected"><span class="pg" id="readyMode"></span></div></div>
+    <div class="sc-ready" id="readyList"></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot">
+    <button class="sc-btn" data-go="paywall" data-t="cont"></button>
+  </div>
+</section>
+
+<!-- PAYWALL -->
+<section class="scr scr--pay" data-id="paywall">
+  <div class="scr-top">
+    <button class="sc-x" id="payClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h2 class="sc-payh" id="payH"></h2>
+  </div>
+  <div class="scr-body">
+    <div class="sc-tl" id="payTl">
+      <span class="bar"></span>
+      <div class="sc-tli"><span class="dot"><svg viewBox="0 0 24 24"><path d="M7 10V7a5 5 0 0 1 10 0v3h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"/></svg></span><b data-t="pw.today"></b><p id="payToday"></p></div>
+      <div class="sc-tli"><span class="dot"><svg viewBox="0 0 24 24"><path d="M12 22a2.5 2.5 0 0 0 2.4-2h-4.8a2.5 2.5 0 0 0 2.4 2Zm7-6V11a7 7 0 0 0-5.5-6.8V3.5a1.5 1.5 0 0 0-3 0v.7A7 7 0 0 0 5 11v5l-2 2v1h18v-1l-2-2Z"/></svg></span><b data-t="pw.rem"></b><p data-t="pw.remD"></p></div>
+      <div class="sc-tli" style="padding-bottom:6px"><span class="dot dk"><svg viewBox="0 0 24 24"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5L3 7Zm2 13h14v2H5v-2Z"/></svg></span><b data-t="pw.bill"></b><p id="payBill"></p></div>
+    </div>
+    <div class="sc-proof">
+      <div class="lr"><svg class="lf" viewBox="0 0 30 58"></svg><div><b>4.8</b><span data-t="rat"></span></div><svg class="lf r" viewBox="0 0 30 58"></svg></div>
+      <span class="sep"></span>
+      <div class="us"><b>30M+</b><span data-t="pw.users"></span></div>
+    </div>
+    <button class="sc-tog" id="trialTog"><span id="togTxt"></span><span class="sc-sw"><i></i></span></button>
+    <div class="sc-plans" id="planList">
+      <button class="sc-plan" data-v="month">
+        <span class="rd"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span class="n" data-t="pw.month"></span><span class="p">$12.99/<span data-t="pw.mo"></span></span><span class="w" id="wkM"></span>
+        <span class="tg pop" data-t="pw.pop"></span>
+      </button>
+      <button class="sc-plan" data-v="year">
+        <span class="rd"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <span class="n" data-t="pw.year"></span><span class="p">$89.99/<span data-t="pw.yr"></span></span><span class="w" id="wkY"></span>
+        <span class="tg" data-t="pw.best"></span>
+      </button>
+    </div>
+    <div style="height:4px"></div>
+  </div>
+  <div class="scr-foot" style="padding-top:12px">
+    <button class="sc-btn" id="payCta"></button>
+    <div class="sc-legal"><a data-t="lg.priv"></a>•<a data-t="lg.rest"></a>•<a data-t="lg.terms"></a></div>
+  </div>
+</section>
+
+<!-- OFFER ON CLOSE -->
+<section class="scr scr--offer sheet" data-id="offer">
+  <div class="scr-top">
+    <button class="sc-x" id="offClose" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
+    <h2 class="sc-oh" data-th="of.h"></h2>
+  </div>
+  <div class="scr-body">
+    <div class="sc-ocard">
+      <span class="save" data-t="of.save"></span>
+      <div class="n" data-t="pw.year"></div>
+      <div class="big">$89.99<small>/<span data-t="pw.yr"></span></small></div>
+      <div class="w" id="ofWk"></div>
+      <div class="sc-cmp">
+        <div><span data-t="of.m12"></span><b>$155.88</b></div>
+        <div class="y"><span data-t="of.y1"></span><b>$89.99</b></div>
+      </div>
+    </div>
+    <div class="sc-ofeat" id="ofFeat"></div>
+    <div style="height:8px"></div>
+  </div>
+  <div class="scr-foot">
+    <p class="sc-helper" data-th="of.foot"></p>
+    <button class="sc-btn" id="offerCta" data-t="of.cta"></button>
+    <div class="sc-legal"><a data-t="lg.priv"></a>•<a data-t="lg.rest"></a>•<a data-t="lg.terms"></a></div>
+  </div>
+</section>
+
+<!-- REMINDER (moved after the trial starts) -->
+<section class="scr" data-id="reminder">
+  <div class="scr-top">
+    <h2 class="sc-bellh" data-t="rm.h"></h2>
+  </div>
+  <div class="scr-body">
+    <svg class="sc-bell" viewBox="0 0 150 150" id="bellArt"></svg>
+  </div>
+  <div class="scr-foot">
+    <p class="sc-chk"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg><span data-t="rm.chk"></span></p>
+    <button class="sc-btn" id="remCta" data-t="rm.cta"></button>
+    <p class="sc-helper" id="remFoot" style="margin:10px 0 0"></p>
+  </div>
+</section>
+
+<!-- HOME -->
+<section class="scr scr--home" data-id="home">
+  <svg class="sc-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>
+  <div class="scr-top">
+    <h2 class="sc-hh" data-t="hm.h"></h2>
+    <div class="sc-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span data-t="hm.s"></span></div>
+  </div>
+  <div class="scr-body">
+    <svg class="sc-hill" viewBox="0 0 150 150" id="homeArt"></svg>
+    <p class="sc-hmode" id="homeMode"></p>
+    <button class="sc-hbtn"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg><span data-t="hm.scan"></span></button>
+    <button class="sc-hbtn dk"><svg viewBox="0 0 24 24"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></svg><span data-t="hm.imp"></span></button>
+  </div>
+  <div class="scr-foot" style="padding-top:0">
+    <div class="sc-tabs">
+      <div class="on"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 6a2 2 0 0 1 2-2h4.6l2 2H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6Z"/></svg><span data-t="hm.docs"></span></div>
+      <span class="mid"><svg viewBox="0 0 24 24"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M9 12h6"/></svg></span>
+      <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="6" y="3" width="12" height="16" rx="2"/><path d="M9 21h9a2 2 0 0 0 2-2V7"/></svg><span>Actions</span></div>
+    </div>
+  </div>
+</section>
+
+        </div>
+      </div>
+    </div>
+    <div class="demo-cap hidden" id="demoCap"><div class="bar"><i id="demoProg"></i></div><p id="demoTxt"></p><button id="demoStop">Stop</button></div>
+    <div class="chips" id="chips"></div>
+    <p class="chiphint">Jump to any screen — answers already filled in.</p>
+    <div class="qr"><img src="img/qr.svg?v=1" alt="QR code for this prototype"><span><b>Open it on your phone</b>Scan to try the flow in your hand.</span></div>
+  </div>
+  <div class="panelcol"><div class="pn" id="panel"></div></div>
+</div>
+</div><!-- /view-proto -->
+
+<script>
+/* ================= copy, per language (phone screens only) ================= */
+var LANGS = ['en','fr'];
+var T = {
+ 'wel.h':  ['Welcome to Scanner','Bienvenue dans Scanner'],
+ 'wel.sub':['The n°1 Document Scanner and PDF editor','Le scanner de documents et éditeur PDF n°1'],
+ 'rat':    ['1.5M total ratings','1,5 M de notes au total'],
+ 'cont':   ['Continue','Continuer'],
+ 'pick':   ['Pick all that apply.','Choisissez tout ce qui s’applique.'],
+ 'scan.h': ['What will you scan?','Qu’allez-vous scanner ?'],
+ 'use.h':  ['What do you need to do with them?','Qu’en ferez-vous ensuite ?'],
+ 'rd.h':   ['Your <i>Scanner</i> is ready for <em>{x}</em>','Votre <i>Scanner</i> est prêt pour <em>{x}</em>'],
+ 'rd.scan':['Edge detection and auto-crop on every page','Détection des bords et recadrage sur chaque page'],
+ 'and':    [' and ',' et '],
+ 'more':   ['{x} and more','{x} et plus'],
+ 'pw.h':   ['Start your 3-day FREE Trial to scan your {x}.','Essai GRATUIT de 3 jours pour scanner vos {x}.'],
+ 'pw.hOff':['Go Scanner Pro to scan your {x}.','Passez à Scanner Pro pour scanner vos {x}.'],
+ 'pw.today':['Today','Aujourd’hui'],
+ 'pw.todayD':['Go premium and unlock {x}.','Débloquez {x}.'],
+ 'pw.todayNT':['Go premium and unlock {x} — billed today.','Débloquez {x} — facturé aujourd’hui.'],
+ 'pw.rem': ['In 2 Days - Reminder','Dans 2 jours - Rappel'],
+ 'pw.remD':['We’ll send you a reminder that your trial is ending soon','Un rappel vous prévient avant la fin de l’essai'],
+ 'pw.bill':['In 3 Days - Billing Starts','Dans 3 jours - Début de la facturation'],
+ 'pw.billD':['You’ll be charged {p} on {d} unless you cancel anytime before.','{p} facturés le {d}, sauf annulation avant.'],
+ 'pw.users':['people use Scanner','utilisent Scanner'],
+ 'pw.togOn':['3-Day Free Trial Enabled','Essai gratuit de 3 jours activé'],
+ 'pw.togOff':['Enable 3-Day Free Trial','Activer l’essai gratuit de 3 jours'],
+ 'pw.month':['MONTHLY','MENSUEL'], 'pw.year':['YEARLY','ANNUEL'],
+ 'pw.mo':  ['month','mois'], 'pw.yr':['year','an'],
+ 'pw.wk':  ['Just {p}/week','Seulement {p}/semaine'],
+ 'pw.pop': ['POPULAR','POPULAIRE'], 'pw.best':['BEST DEAL','MEILLEURE OFFRE'],
+ 'pw.ctaT':['Start My Free Trial','Commencer mon essai gratuit'],
+ 'pw.ctaD':['Continue','Continuer'],
+ 'lg.priv':['Privacy Policy','Confidentialité'], 'lg.rest':['Restore Purchase','Restaurer'], 'lg.terms':['Terms of Use','Conditions'],
+ 'of.h':   ['Before you go: a full year of Scanner <b>Pro</b> for $1.73 a week','Avant de partir : une année de Scanner <b>Pro</b> pour $1.73 par semaine'],
+ 'of.save':['SAVE 42% VS MONTHLY','42 % DE MOINS QUE LE MENSUEL'],
+ 'of.m12': ['12 months at $12.99','12 mois à $12.99'],
+ 'of.y1':  ['One year of Pro','Un an de Pro'],
+ 'of.foot':['<b>$89.99 billed today</b> · cancel anytime in Settings','<b>$89.99 facturés aujourd’hui</b> · annulable à tout moment'],
+ 'of.cta': ['Get a Year for $89.99','Prendre l’année à $89.99'],
+ 'rm.h':   ['We’ll send you a reminder before your free trial ends','Nous vous enverrons un rappel avant la fin de votre essai gratuit'],
+ 'rm.chk': ['No Payment Due Now','Aucun paiement maintenant'],
+ 'rm.cta': ['Turn On My Reminder','Activer mon rappel'],
+ 'rm.foot':['Your trial ends on {d}','Votre essai se termine le {d}'],
+ 'hm.h':   ['Documents','Documents'], 'hm.s':['Search','Rechercher'],
+ 'hm.scan':['Scan documents','Scanner des documents'], 'hm.imp':['Import','Importer'], 'hm.docs':['Documents','Documents'],
+ 'hm.mode':['Your first scan opens in <b>{m}</b> mode','Votre premier scan s’ouvre en mode <b>{m}</b>']
+};
+var IC = {
+ receipts:'<path d="M6 3h12v18l-2.5-1.5L13 21l-2.5-1.5L8 21l-2-1.5V3Z"/><path d="M9 8h6M9 12h6M9 16h3"/>',
+ contracts:'<path d="M14 3H6a1 1 0 0 0-1 1v16a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V8l-5-5Z"/><path d="M14 3v5h5M8 13h8M8 17c1.5-2 2.5 1 4-1s2 1 4 0"/>',
+ ids:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2.2"/><path d="M5.8 16c.6-1.6 1.8-2.4 3.2-2.4s2.6.8 3.2 2.4M14.5 10h4M14.5 13.5h3"/>',
+ notes:'<path d="M4 5.5C6.5 4 9.5 4 12 6c2.5-2 5.5-2 8-.5V19c-2.5-1.5-5.5-1.5-8 .5-2.5-2-5.5-2-8-.5V5.5Z"/><path d="M12 6v13.5"/>',
+ boards:'<rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20l2-4M16 20l-2-4M7 9l3 2 3-3 4 3"/>',
+ sign:'<path d="M3 20c3-1 4-6 6-6s0 5 2 5 2-3 4-3 2 2 6 2"/><path d="M15 4l5 5-8 8H7v-5l8-8Z"/>',
+ send:'<path d="M21 3 10 14M21 3l-7 18-4-7-7-4 18-7Z"/>',
+ text:'<path d="M4 7V5h16v2M12 5v14M9 19h6"/>',
+ lock:'<rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3M12 14v2"/>'
+};
+var SCAN = [
+ {k:'receipts', l:['Receipts & invoices','Reçus et factures'], n:['receipts','reçus'], mode:['Document','Document'], rd:['Multi-page scans for receipts and invoices','Scans multipages pour reçus et factures']},
+ {k:'contracts',l:['Contracts & forms','Contrats et formulaires'], n:['contracts','contrats'], mode:['Document','Document'], rd:['Multi-page PDFs for contracts and forms','PDF multipages pour contrats et formulaires']},
+ {k:'ids',      l:['IDs & passports','Pièces d’identité et passeports'], n:['IDs','papiers'], mode:['ID & Passport','Identité'], rd:['Dedicated ID and passport mode','Mode dédié pièces d’identité et passeports']},
+ {k:'notes',    l:['Notes & textbooks','Notes et manuels'], n:['notes','notes'], mode:['Document','Document'], rd:['Text recognition for notes and pages','Reconnaissance de texte pour notes et pages']},
+ {k:'boards',   l:['Whiteboards','Tableaux blancs'], n:['whiteboards','tableaux blancs'], mode:['Document','Document'], rd:['Contrast and sharpening for whiteboards','Contraste et netteté pour tableaux blancs']}
+];
+var USE = [
+ {k:'sign', l:['Sign them','Les signer'], rd:['E-signature in your own ink color','Signature électronique à votre couleur d’encre'], perk:-1},
+ {k:'send', l:['Send them as PDF, JPG or Word','Les envoyer en PDF, JPG ou Word'], rd:['Export to PDF, JPG, PNG or Word','Export en PDF, JPG, PNG ou Word'], perk:2},
+ {k:'text', l:['Copy the text out','En extraire le texte'], rd:['OCR in English, Spanish, French, German and more','OCR en anglais, espagnol, français, allemand et plus'], perk:1},
+ {k:'lock', l:['Keep them private','Les garder privés'], rd:['Password lock for sensitive files','Verrouillage par mot de passe des fichiers sensibles'], perk:3}
+];
+/* their own "Today" line, word for word, in its order */
+var PERKS = [['unlimited scans','OCR','no watermarks','passcode protection','an ad-free experience'],
+             ['les scans illimités','l’OCR','zéro filigrane','la protection par code','une expérience sans pub']];
+var SK={}, UK={}; SCAN.forEach(function(o){SK[o.k]=o;}); USE.forEach(function(o){UK[o.k]=o;});
+var LOCALE={en:'en-US',fr:'fr-FR'};
+
+/* ================= state ================= */
+var S0={lang:'en',theme:'light'};
+function defaults(){ return {lang:S0.lang,theme:S0.theme,scan:['contracts','ids'],use:['sign','lock'],plan:'month',trial:true}; }
+var S=defaults();
+function L(){ return LANGS.indexOf(S.lang); }
+function t(k,v){ var s=(T[k]||[k])[L()]; if(v) Object.keys(v).forEach(function(x){ s=s.split('{'+x+'}').join(v[x]); }); return s; }
+function joinL(a){ return a.length<2?(a[0]||''):a.slice(0,-1).join(', ')+t('and')+a[a.length-1]; }
+function inOrder(list,picked){ return list.filter(function(o){ return picked.indexOf(o.k)>-1; }); }
+function fmtDate(d){ return new Intl.DateTimeFormat(LOCALE[S.lang], S.lang==='fr'?{day:'numeric',month:'long',year:'numeric'}:{month:'short',day:'numeric',year:'numeric'}).format(d); }
+function plusDays(n){ var d=new Date(); d.setDate(d.getDate()+n); return d; }
+function scanNouns(){ var s=inOrder(SCAN,S.scan).map(function(o){ return o.n[L()]; }); if(!s.length) return S.lang==='fr'?'documents':'documents';
+  return s.length>2 ? t('more',{x:s.slice(0,2).join(t('and'))}) : joinL(s); }
+
+/* ================= marks ================= */
+function laurel(el,flip){
+  var h='<g transform="'+(flip?'translate(30 0) scale(-1 1)':'')+'" fill="#B48A2C">'
+   +'<path d="M22 54C10 46 6 30 10 12" stroke="#B48A2C" stroke-width="2" fill="none" stroke-linecap="round"/>';
+  [[11,12,-30],[8,20,-20],[7,28,-10],[8,36,0],[11,43,12],[15,49,24]].forEach(function(p){
+    h+='<ellipse cx="'+(p[0]+5)+'" cy="'+p[1]+'" rx="5.5" ry="2.6" transform="rotate('+(p[2]-35)+' '+(p[0]+5)+' '+p[1]+')"/>'
+      +'<ellipse cx="'+(p[0]-3)+'" cy="'+(p[1]+2)+'" rx="5.5" ry="2.6" transform="rotate('+(p[2]+35)+' '+(p[0]-3)+' '+(p[1]+2)+')"/>'; });
+  el.innerHTML=h+'</g>';
+}
+document.querySelectorAll('svg.lf').forEach(function(s){ laurel(s, s.classList.contains('r')); });
+document.getElementById('bellArt').innerHTML=
+ '<defs><linearGradient id="bg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFD780"/><stop offset=".55" stop-color="#F6BD59"/><stop offset="1" stop-color="#D98E26"/></linearGradient></defs>'
+ +'<g transform="rotate(-14 70 80)"><circle cx="70" cy="28" r="7" fill="#E7A33C"/>'
+ +'<path d="M70 30c-22 0-34 17-34 40v20l-10 14h88l-10-14V70c0-23-12-40-34-40Z" fill="url(#bg1)"/>'
+ +'<path d="M44 66c0-14 7-25 18-29" stroke="#FFE7B0" stroke-width="5" fill="none" stroke-linecap="round" opacity=".8"/>'
+ +'<ellipse cx="70" cy="104" rx="44" ry="7" fill="#D3922F"/><circle cx="70" cy="116" r="10" fill="#C98322"/></g>'
+ +'<circle cx="112" cy="40" r="20" fill="#E0383E"/><text x="112" y="48" text-anchor="middle" font-family="-apple-system,Inter,sans-serif" font-weight="700" font-size="22" fill="#fff">1</text>';
+document.getElementById('homeArt').innerHTML=
+ '<rect x="38" y="22" width="74" height="96" rx="5" fill="#DDE6F7"/><rect x="48" y="38" width="54" height="5" rx="2" fill="#B9C9EC"/><rect x="48" y="50" width="40" height="5" rx="2" fill="#B9C9EC"/><rect x="48" y="62" width="48" height="5" rx="2" fill="#B9C9EC"/>'
+ +'<rect x="20" y="78" width="110" height="34" rx="4" fill="#C6D5F2" opacity=".85"/>'
+ +'<path d="M24 26v-12h12M114 14h12v12M126 116v12h-12M36 128H24v-12" stroke="#3E7BEE" stroke-width="4" fill="none" stroke-linecap="round"/>';
+
+/* ================= builders (re-run on language change) ================= */
+var ckSvg='<span class="sc-ck"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></span>';
+var tickSvg='<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+function buildRows(id,list,key){
+  var g=document.getElementById(id); g.innerHTML='';
+  list.forEach(function(o){ var b=document.createElement('button'); b.className='sc-row'; b.dataset.v=o.k;
+    b.innerHTML='<span class="ic"><svg viewBox="0 0 24 24">'+IC[o.k]+'</svg></span><span class="lb">'+o.l[L()]+'</span>'+ckSvg;
+    b.addEventListener('click',function(){ var a=S[key], i=a.indexOf(o.k); if(i>-1) a.splice(i,1); else a.push(o.k); syncScreen(); });
+    g.appendChild(b); });
+}
+function applyStatic(){
+  document.documentElement.lang=S.lang;
+  document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent=t(el.dataset.t); });
+  document.querySelectorAll('[data-th]').forEach(function(el){ el.innerHTML=t(el.dataset.th); });
+  buildRows('scanList',SCAN,'scan'); buildRows('useList',USE,'use');
+}
+
+/* ================= everything downstream reads S ================= */
+function perkList(){
+  var li=L(), idx=[0];
+  inOrder(USE,S.use).forEach(function(u){ if(u.perk>0 && idx.indexOf(u.perk)<0) idx.push(u.perk); });
+  [1,2,3,4].forEach(function(i){ if(idx.indexOf(i)<0) idx.push(i); });
+  return idx.map(function(i){ return PERKS[li][i]; });
+}
+function syncScreen(){
+  var li=L();
+  document.querySelectorAll('#scanList .sc-row').forEach(function(b){ b.classList.toggle('on',S.scan.indexOf(b.dataset.v)>-1); });
+  document.querySelectorAll('#useList .sc-row').forEach(function(b){ b.classList.toggle('on',S.use.indexOf(b.dataset.v)>-1); });
+  document.getElementById('scanBtn').disabled=!S.scan.length;
+  document.getElementById('useBtn').disabled=!S.use.length;
+
+  var sc=inOrder(SCAN,S.scan), us=inOrder(USE,S.use), nouns=scanNouns();
+  var mode=(SK.ids && S.scan.indexOf('ids')>-1 && S.scan[0]==='ids') ? SK.ids.mode[li] : (sc[0]?sc[0].mode[li]:'Document');
+  /* set-up screen: their picks, read back as the tools Scanner already has */
+  document.getElementById('readyH').innerHTML=t('rd.h',{x:nouns});
+  document.getElementById('readyMode').textContent=(sc[0]?sc[0].mode[li]:'Document').toUpperCase();
+  var lines=sc.slice(0,2).map(function(o){ return o.rd[li]; }).concat(us.slice(0,2).map(function(o){ return o.rd[li]; }));
+  if(lines.length<3) lines.push(t('rd.scan'));
+  document.getElementById('readyList').innerHTML=lines.map(function(x){ return '<div>'+tickSvg+'<span>'+x+'</span></div>'; }).join('');
+
+  /* paywall */
+  var perks=perkList(), perkTxt=perks.slice(0,-1).join(', ')+(S.lang==='fr'?' et ':', and ')+perks[perks.length-1];
+  document.getElementById('payH').textContent=S.trial ? t('pw.h',{x:nouns}) : t('pw.hOff',{x:nouns});
+  document.getElementById('payToday').textContent=S.trial ? t('pw.todayD',{x:perkTxt}) : t('pw.todayNT',{x:perkTxt});
+  var price=S.plan==='year'?'$89.99':'$12.99';
+  document.getElementById('payBill').textContent=t('pw.billD',{p:price,d:fmtDate(plusDays(3))});
+  document.getElementById('payTl').style.opacity=S.trial?1:.45;
+  var tg=document.getElementById('trialTog'); tg.classList.toggle('on',S.trial);
+  document.getElementById('togTxt').textContent=S.trial?t('pw.togOn'):t('pw.togOff');
+  document.querySelectorAll('#planList .sc-plan').forEach(function(b){ b.classList.toggle('on',b.dataset.v===S.plan); });
+  document.getElementById('wkM').textContent=t('pw.wk',{p:'$3.25'});
+  document.getElementById('wkY').textContent=t('pw.wk',{p:'$1.73'});
+  document.getElementById('payCta').textContent=S.trial?t('pw.ctaT'):t('pw.ctaD');
+
+  /* offer */
+  document.getElementById('ofWk').textContent=t('pw.wk',{p:'$1.73'});
+  document.getElementById('ofFeat').innerHTML=perks.slice(0,4).map(function(x){ return '<div>'+tickSvg+'<span>'+x.charAt(0).toUpperCase()+x.slice(1)+'</span></div>'; }).join('');
+
+  /* reminder + home */
+  document.getElementById('remFoot').textContent=t('rm.foot',{d:fmtDate(plusDays(3))});
+  document.getElementById('homeMode').innerHTML=t('hm.mode',{m:sc[0]?sc[0].mode[li]:'Document'});
+}
+
+/* ================= router ================= */
+var ORDER=['welcome','scan','use','ready','paywall','offer','reminder','home'];
+var LABEL={welcome:'Welcome',scan:'What you scan',use:'What you do',ready:'Set up',paywall:'Paywall',offer:'Offer on close',reminder:'Reminder',home:'Home'};
+var scr={}, hist=[], cur='welcome';
+document.querySelectorAll('.scr').forEach(function(s){ scr[s.dataset.id]=s; });
+function chrome(){ var dark=S.theme==='dark'; document.getElementById('sbar').classList.toggle('light',dark); document.getElementById('homebar').classList.toggle('light',dark); }
+function enter(id){ chrome(); paintChips(); paintPanel(); }
+function go(id,opts){
+  opts=opts||{}; if(id===cur) return;
+  var from=scr[cur], to=scr[id];
+  if(!opts.back) hist.push(cur);
+  if(from){ from.classList.remove('is-active');
+    if(!to.classList.contains('sheet') && !from.classList.contains('sheet')) from.classList.add('is-past'); }
+  Object.keys(scr).forEach(function(k){ if(k!==id&&k!==cur) scr[k].classList.remove('is-active'); });
+  if(to.classList.contains('sheet')) from.classList.add('is-active');
+  to.classList.remove('is-past'); to.classList.add('is-active');
+  if(from.classList.contains('sheet')) Object.keys(scr).forEach(function(k){ if(k!==id) scr[k].classList.remove('is-active'); });
+  cur=id; enter(id);
+}
+function back(){
+  if(!hist.length) return;
+  var prev=hist.pop();
+  scr[cur].classList.remove('is-active');
+  scr[prev].classList.remove('is-past'); scr[prev].classList.add('is-active');
+  cur=prev; enter(prev);
+}
+function jump(id){
+  var i=ORDER.indexOf(id);
+  Object.keys(scr).forEach(function(k){ scr[k].classList.add('nofx'); scr[k].classList.remove('is-active','is-past'); });
+  hist=ORDER.slice(0,i<0?0:i).filter(function(k){ return k!=='offer'; });
+  if(id==='offer') scr.paywall.classList.add('is-active');
+  scr[id].classList.add('is-active'); cur=id;
+  requestAnimationFrame(function(){ requestAnimationFrame(function(){
+    Object.keys(scr).forEach(function(k){ scr[k].classList.remove('nofx'); }); }); });
+  syncScreen(); enter(id);
+}
+function paintChips(){
+  var c=document.getElementById('chips');
+  if(!c.children.length) ORDER.forEach(function(id){
+    var b=document.createElement('button'); b.className='chip'+(id==='offer'?' offer':''); b.textContent=LABEL[id];
+    b.dataset.id=id; b.onclick=function(){ stopDemo(); jump(id); }; c.appendChild(b); });
+  c.querySelectorAll('.chip').forEach(function(b){ b.classList.toggle('on',b.dataset.id===cur); });
+}
+
+/* ================= wiring ================= */
+document.querySelectorAll('[data-go]').forEach(function(b){ b.addEventListener('click',function(){ if(!b.disabled) go(b.dataset.go); }); });
+document.querySelectorAll('[data-back]').forEach(function(b){ b.addEventListener('click',back); });
+document.querySelectorAll('#planList .sc-plan').forEach(function(b){ b.addEventListener('click',function(){ S.plan=b.dataset.v; syncScreen(); }); });
+document.getElementById('trialTog').addEventListener('click',function(){ S.trial=!S.trial; syncScreen(); });
+document.getElementById('payClose').addEventListener('click',function(){ go('offer'); });
+document.getElementById('payCta').addEventListener('click',function(){ go(S.trial?'reminder':'home'); });
+document.getElementById('offClose').addEventListener('click',function(){ go('home'); });
+document.getElementById('offerCta').addEventListener('click',function(){ go('home'); });
+document.getElementById('remCta').addEventListener('click',function(){ go('home'); });
+
+function setSeg(id,attr,val){ document.querySelectorAll('#'+id+' button').forEach(function(b){ b.classList.toggle('on',b.dataset[attr]===val); }); }
+function setLang(l){ S.lang=l; S0.lang=l; setSeg('segLang','lang',l); applyStatic(); syncScreen(); paintPanel(); }
+function setTheme(th){ S.theme=th; S0.theme=th; document.getElementById('phoneIn').classList.toggle('dark',th==='dark'); setSeg('segTheme','theme',th); chrome(); }
+document.querySelectorAll('#segLang button').forEach(function(b){ b.addEventListener('click',function(){ stopDemo(); setLang(b.dataset.lang); }); });
+document.querySelectorAll('#segTheme button').forEach(function(b){ b.addEventListener('click',function(){ setTheme(b.dataset.theme); }); });
+
+/* ================= the 30-second walkthrough ================= */
+var demo={tok:0,on:false,t0:0,iv:null}, finger=document.getElementById('finger'), phoneIn=document.getElementById('phoneIn');
+function W(ms){ return new Promise(function(r){ setTimeout(r,ms); }); }
+function cap(txt){ document.getElementById('demoTxt').textContent=txt; }
+async function tap(sel,tok){
+  if(demo.tok!==tok) throw 0;
+  var el=document.querySelector(sel); if(!el) return;
+  var r=el.getBoundingClientRect(), p=phoneIn.getBoundingClientRect(), z=p.width/phoneIn.offsetWidth||1;
+  finger.style.left=((r.left-p.left+r.width/2)/z)+'px'; finger.style.top=((r.top-p.top+r.height/2)/z)+'px';
+  finger.classList.add('show'); await W(380); if(demo.tok!==tok) throw 0;
+  finger.classList.add('press'); await W(120); finger.classList.remove('press'); el.click(); await W(160);
+  if(demo.tok!==tok) throw 0;
+}
+async function pause(ms,tok){ await W(ms); if(demo.tok!==tok) throw 0; }
+function startDemo(){
+  stopDemo(); var tok=++demo.tok; demo.on=true; demo.t0=Date.now();
+  var keep={lang:S.lang,theme:S.theme}; S=defaults(); S.lang=keep.lang; S.theme=keep.theme;
+  S.scan=['contracts']; S.use=['sign'];
+  applyStatic(); jump('welcome');
+  document.getElementById('demoCap').classList.remove('hidden');
+  demo.iv=setInterval(function(){ document.getElementById('demoProg').style.width=Math.min(100,(Date.now()-demo.t0)/225)+'%'; },200);
+  (async function(){
+    try{
+      cap('Your welcome screen, with your 4.8 laurel, unchanged.'); await pause(1700,tok);
+      await tap('[data-id=welcome] .sc-btn',tok);
+      cap('One new question: what will they scan? Say, contracts and IDs.'); await pause(800,tok);
+      await tap('#scanList [data-v=ids]',tok); await pause(450,tok); await tap('#scanBtn',tok);
+      cap('And what they need to do with the page.'); await pause(700,tok);
+      await tap('#useList [data-v=lock]',tok); await pause(450,tok); await tap('#useBtn',tok);
+      cap('Their answers come back as tools Scanner already has, switched on.'); await pause(2600,tok);
+      await tap('[data-id=ready] .sc-btn',tok);
+      cap('Your timeline paywall, now naming what they scan — with your 4.8 and 30M+ users by the plans.'); await pause(2600,tok);
+      await tap('#planList [data-v=year]',tok); await pause(800,tok); await tap('#planList [data-v=month]',tok); await pause(500,tok);
+      cap('They close it. One second chance: the year at $1.73 a week, your own price.'); await tap('#payClose',tok); await pause(3200,tok);
+      cap('That is the flow. The reminder now comes after the trial starts — tap the Reminder chip.');
+      finger.classList.remove('show'); await pause(2600,tok); stopDemo();
+    }catch(e){}
+  })();
+}
+function stopDemo(){ if(!demo.on) return; demo.tok++; demo.on=false; clearInterval(demo.iv); finger.classList.remove('show','press');
+  document.getElementById('demoCap').classList.add('hidden'); }
+document.getElementById('demoBtn').addEventListener('click',startDemo);
+document.getElementById('demoStop').addEventListener('click',stopDemo);
+phoneIn.addEventListener('pointerdown',function(e){ if(e.isTrusted && demo.on) stopDemo(); });
+</script>
+<script>
+/* ---- the short panel: hypothesis + potential outcome, nothing else ---- */
+var PANEL = {
+welcome:{ctx:true,t:'Welcome to Scanner',
+ kept:'Your welcome screen as it ships — the headline, “The n°1 Document Scanner and PDF editor”, the gold 4.8 laurel and the blue Continue button. The line-art is from your own App Store screenshots.'},
+scan:{n:2,t:'Ask what they scan, then say it on the paywall',
+ hyp:'Try one question straight after the welcome, <b>because today nothing asks, so the paywall says “to continue” to someone holding a passport and to someone holding a lease</b>. The five options are the uses your App Store listing names.',
+ kept:'Your plan-card border, your blue check circle and your line icons, in your blue.',
+ out:'CR +15–20%'},
+use:{n:4,t:'Show their scanner set up before the price',
+ hyp:'Try asking what they need to do with the page, <b>because Scanner already has the tool for every answer — e-signature, export to Word, text recognition, password lock</b>. The next screen switches those on.',
+ kept:'Same rows and check circles as the question before.',
+ out:'CR +10–15%'},
+ready:{n:4,t:'Show their scanner set up before the price',
+ hyp:'Try this in place of “Do you want to try Scanner Pro for free?”, <b>because it shows the tools they picked ready to go instead of asking about a trial the paywall asks about again</b>. Every line is a feature from your listing.',
+ kept:'Your composition: the italic Scanner wordmark headline, the dark phone mockup with a live scan, the green ticks and the full-width button.',
+ out:'CR +10–15%'},
+paywall:{n:2,t:'Ask what they scan, then say it on the paywall',
+ hyp:'Try naming what they scan in your headline, <b>because “to continue” speaks to nobody</b>. Go back, pick IDs, and the headline and the Today line change with it.',
+ n2:5, t2:'Put your 4.8 and 30M+ users next to the plans',
+ hyp2:'Try your laurel and “30M+ people use Scanner” between the timeline and the toggle, <b>because today your proof sits on the welcome screen only, four screens before the price</b>.',
+ out2:'CR +10–15%',
+ kept:'Your trial timeline with its three icons, the trial toggle, both plan cards with POPULAR and BEST DEAL, both prices and weekly lines, the X and the full-width blue button.',
+ out:'CR +15–20%'},
+offer:{n:1,t:'Offer the year when they close the paywall',
+ hyp:'Try one yearly offer behind the paywall’s X, <b>because $89.99 a year is 42% less than twelve months at $12.99, and today it sits unselected beside a preselected monthly</b>. Both prices are your own, so nothing here is discounted or invented.',
+ kept:'Your plan-card style made single, your blue pill, your green ticks and the Today line’s own perks, word for word.',
+ out:'ARPU +10–15%'},
+reminder:{n:3,t:'Pitch the free trial once, not three times',
+ hyp:'Try this screen just after the trial starts, <b>because today “Try for $0.00”, this bell and the paywall timeline sit back to back, all about the same three days</b>. Here it keeps the promise instead of repeating it.',
+ kept:'Your bell with the red badge, your headline, the green “No Payment Due Now” tick and the blue button.',
+ out:'CR +10–15%'},
+home:{ctx:true,t:'Documents',
+ kept:'Your home screen: large title, search, the blue Scan documents and black Import buttons, the tab bar with the centre scan button. The first scan opens in the mode they picked.'}
+};
+function outBlock(lab,val){ return '<div class="pn-out"><div class="lab">'+lab+'</div><div class="v">'+val+'</div></div>'; }
+function paintPanel(){
+  var d=PANEL[cur]; if(!d) return; var h='';
+  if(d.ctx){
+    h+='<div class="pn-n ctx">Context · no change proposed</div><h3 class="pn-t">'+d.t+'</h3><div class="pn-kept">'+d.kept+'</div>';
+  } else {
+    h+='<div class="pn-n">Idea '+d.n+' of 5</div><h3 class="pn-t">'+d.t+'</h3><p class="pn-hyp">'+d.hyp+'</p>'
+      +outBlock('Potential outcome · based on Adapty data',d.out);
+    if(d.hyp2){
+      h+='<div class="pn-sep"></div><div class="pn-n">Idea '+d.n2+' of 5</div><h3 class="pn-t" style="font-size:19px">'+d.t2+'</h3>'
+        +'<p class="pn-hyp" style="margin-top:12px">'+d.hyp2+'</p>'+outBlock('Potential outcome · based on Adapty data',d.out2);
+    }
+    h+='<div class="pn-kept"><b>Your design, unchanged.</b> '+d.kept+'</div>';
+  }
+  if(S.lang!=='en') h+='<div class="pn-kept"><b>Language.</b> Screens are shown in French, Luni’s home market, to show one flow serving every storefront. Store prices stay as published in US dollars.</div>';
+  h+='<div class="pn-foot">Ranges are Adapty’s expected effect from tests across 30,000+ subscription apps — not measured lift for Luni. Prices, ratings, user counts and feature lines come from your own App Store listing and in-app screens.</div>';
+  document.getElementById('panel').innerHTML=h;
+}
+
+/* ---- views, jumps from the overview ---- */
+function showView(v){
+  if(v!=='proto') stopDemo();
+  document.querySelectorAll('.view').forEach(function(x){ x.classList.remove('on'); });
+  document.getElementById('view-'+v).classList.add('on');
+  document.querySelectorAll('.nav-links button[data-view]').forEach(function(b){ b.classList.toggle('on',b.dataset.view===v); });
+  window.scrollTo(0,0);
+}
+document.querySelectorAll('[data-view]').forEach(function(b){ b.addEventListener('click',function(){ showView(b.dataset.view); }); });
+document.querySelectorAll('.idea[data-jump]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); jump(b.dataset.jump); }); });
+document.querySelectorAll('[data-demo]').forEach(function(b){ b.addEventListener('click',function(){ showView('proto'); startDemo(); }); });
+
+applyStatic();
+scr.welcome.classList.add('is-active');
+syncScreen(); chrome(); paintChips(); paintPanel();
+if(/[?&]open=proto/.test(location.search)) showView('proto');
+</script>
+</body>
+</html>
